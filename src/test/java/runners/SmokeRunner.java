@@ -1,6 +1,5 @@
 package runners;
 
-
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
@@ -14,7 +13,7 @@ import org.junit.runner.RunWith;
         //it will quickly scan all the gherkin steps whether they are implemented or not
         //when we dryRun = false, it starts execute again
         dryRun = false,
-        tags = "@tag123",
+        tags = "@tc1103",
         //to remove irrelevant info from console, you need to monochrome to true
         monochrome = true,
         //pretty keyword prints the steps in the console to increase readability
