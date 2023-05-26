@@ -1,13 +1,35 @@
 Feature: Add Employee
 
-  @sprint3 @regression
-  Scenario: Valid admin login
-    Given user is navigated to HRMS application
+
+  Background:
     When user enters valid username and password
     And user clicks on login button
     Then user is successfully logged in
     When user clicks on PIM option
     And user clicks on Add Employee button
+
+  @sprint3 @regression
+  Scenario: Valid admin login
     And user enter firstname and lastname
     And user clicks on save button
     Then employee added successfully
+
+  @test1
+  Scenario: Adding one employee using feature file
+    And user enter "ooo" and "oaa"
+    And user clicks on save button
+    Then employee added successfully
+
+  @outline1
+  Scenario Outline: Adding multiple employees using feature file
+    And user enter value for "<firstNameValue>" and "<lastNameValue>"
+    And user clicks on save button
+    Then employee added successfully
+    Examples:
+      | firstNameValue | lastNameValue |
+      | aaa       | bbb      |
+      | aaa1      | bbb1     |
+
+
+
+

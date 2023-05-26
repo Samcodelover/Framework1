@@ -40,4 +40,19 @@ public class AddEmployeeSteps extends CommonMethods {
     public void employee_added_successfully() {
         System.out.println("Employee Added");
     }
+
+    @When("user enter {string} and {string}")
+    public void user_enter_and(String firstName, String lastName) {
+        sendText(addEmployeePage.firstNameField, firstName);
+        sendText(addEmployeePage.lastNameField, lastName);
+    }
+
+    @When("user enter value for {string} and {string}")
+    public void user_enter_value_for_and(String firstName, String lastName) {
+        sendText(addEmployeePage.firstNameField, firstName);
+        sendText(addEmployeePage.lastNameField, lastName);
+    }
+
+
+
 }

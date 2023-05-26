@@ -19,20 +19,23 @@ public class EmployeeSearchSteps extends CommonMethods {
 
     @When("user enters a valid employee id")
     public void user_enters_a_valid_employee_id() {
-        WebElement element = driver.findElement(By.id("empsearch_id"));
-        sendText(element, "56221A");
+        //WebElement element = driver.findElement(By.id("empsearch_id"));
+        //sendText(element, "56221A");
+        sendText(employeeList.empSearchIdField, "56221A");
     }
 
     @When("user enters a valid employee name")
     public void user_enters_a_valid_employee_name() {
-        WebElement searchNameField = driver.findElement(By.id("empsearch_employee_name_empName"));
-        sendText(searchNameField, "Selab");
+        //WebElement searchNameField = driver.findElement(By.id("empsearch_employee_name_empName"));
+       // sendText(searchNameField, "Selab");
+        sendText(employeeList.empSearchNameField, "Selab");
     }
 
     @When("user clicks on search button")
     public void user_clicks_on_search_button() {
-        WebElement searchButton = driver.findElement(By.id("searchBtn"));
-        click(searchButton);
+       // WebElement searchButton = driver.findElement(By.id("searchBtn"));
+       // click(searchButton);
+        click(employeeList.searchButton);
         getWait();
     }
     @Then("user see employee information is displayed")
