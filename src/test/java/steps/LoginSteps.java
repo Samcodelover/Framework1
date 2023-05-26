@@ -9,7 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utils.CommonMethods;
+import utils.ConfigReader;
 
+import java.util.ConcurrentModificationException;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps extends CommonMethods {
@@ -28,16 +30,18 @@ public class LoginSteps extends CommonMethods {
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password() {
         WebElement usernameField = driver.findElement(By.id("txtUsername"));
-        usernameField.sendKeys("admin");
+        //usernameField.sendKeys("admin");
+        sendText(usernameField, ConfigReader.getPropertyValue("username"));
 
         WebElement passwordField = driver.findElement(By.id("txtPassword"));
-        passwordField.sendKeys("Hum@nhrm123");
+        //passwordField.sendKeys("Hum@nhrm123");
+        sendText(passwordField, ConfigReader.getPropertyValue(("password")));
     }
 
     @When("user clicks on login button")
     public void user_clicks_on_login_button() {
         WebElement loginButton = driver.findElement(By.id("btnLogin"));
-        loginButton.click();
+        click(loginButton);
     }
 
     @Then("user is successfully logged in")

@@ -3,9 +3,14 @@ package utils;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.poi.ss.formula.functions.T;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,4 +36,49 @@ public class CommonMethods {
         driver.get(ConfigReader.getPropertyValue("url"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
+
+    public static void closeBrowser(){
+        driver.quit();
+    }
+
+
+    //we use this method instead of send keys method throughout the framework
+    public static void sendText(WebElement element, String textToSend){
+        element.clear();
+        element.sendKeys(textToSend);
+    }
+
+    //to get webdriver wait
+    public static WebDriverWait getWait(){
+        WebDriverWait wait = new WebDriverWait(driver, Constants.EXPLICIT_WAIT);
+        return wait;
+    }
+
+    //this method will wait for the element to be clickable
+    public static void waitForClickability(WebElement element){
+        getWait().until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public static void click(WebElement element){
+        waitForClickability(element);
+        element.click();
+    }
+
+    //this method will return JavascriptExecutor Object
+    public static JavascriptExecutor getJSExecuter(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return js;
+    }
+
+    //this function will perform click on element using javascript executor
+    public static void jsClick(WebElement element){
+        getJSExecuter().executeScript("arguments[0].click();", element);
+    }
+
+    //selecting the dropdown using text
+    public static void selectDropdown(WebElement element, String text){
+        Select s = new Select(element);
+        s.selectByVisibleText(text);
+    }
+
 }

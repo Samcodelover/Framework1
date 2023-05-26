@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         //it will quickly scan all the gherkin steps whether they are implemented or not
         //when we dryRun = false, it starts execute again
         dryRun = false,
-        tags = "@sprint1",
+        tags = "@tag123",
         //to remove irrelevant info from console, you need to monochrome to true
         monochrome = true,
         //pretty keyword prints the steps in the console to increase readability
