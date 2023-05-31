@@ -1,10 +1,15 @@
 package steps;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.CommonMethods;
+
+import java.util.List;
+import java.util.Map;
 
 public class AddEmployeeSteps extends CommonMethods {
     @When("user clicks on PIM option")
@@ -53,6 +58,31 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText(addEmployeePage.lastNameField, lastName);
     }
 
+    @When("user adds multiple employee and verify they are added successfully")
+    public void user_adds_multiple_employee_and_verify_they_are_added_successfully(DataTable dataTable) throws InterruptedException {
+        List<Map<String, String>> employeeNames = dataTable.asMaps();
+
+        //getting the map from list of maps
+        for(Map<String, String> employee:employeeNames
+            ){
+            //getting the keys and values from every map
+            String firstNameValue = employee.get("firstName");
+            String middleNameValue = employee.get("middleName");
+            String lastNameValue = employee.get("lastName");
+
+            sendText(addEmployeePage.firstNameField, firstNameValue);
+            sendText(addEmployeePage.lastNameField, middleNameValue);
+            sendText(addEmployeePage.lastNameField, lastNameValue);
+
+            click(addEmployeePage.saveButton);
+            Thread.sleep(2000);
+            //till this point one employee has been added
+            click(dashboardPage.addEmployeeOption);
+            Thread.sleep(2000);
+            //String errorActual = login.errorMessage.getText();
+            //Assert.assertEquals(employeeNames, errorActual);
+        }
+    }
 
 
 }

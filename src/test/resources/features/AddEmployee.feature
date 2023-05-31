@@ -30,6 +30,14 @@ Feature: Add Employee
       | aaa       | bbb      |
       | aaa1      | bbb1     |
 
+    @datatable
+    Scenario: Adding multiple employees using data table
+      When user adds multiple employee and verify they are added successfully
+      |firstName|middleName|lastName|
+      |zara     |MS        |cami    |
+      |birgul   |MS        |ozin   |
+      |alina    |MS        |boba   |
+
 
 
 
