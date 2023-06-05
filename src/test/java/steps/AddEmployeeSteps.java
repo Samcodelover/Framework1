@@ -7,7 +7,10 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.CommonMethods;
+import utils.Constants;
+import utils.ExcelReader;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +86,62 @@ public class AddEmployeeSteps extends CommonMethods {
             //Assert.assertEquals(employeeNames, errorActual);
         }
     }
+
+    @When("user adds multiple employees from excel using {string} and verify it")
+    public void user_adds_multiple_employees_from_excel_using_and_verify_it(String sheetName) throws InterruptedException {
+
+        List<Map<String, String>> empFromExcel =
+                ExcelReader.excelListIntoMap(Constants.TESTDATA_FILEPATH, sheetName);
+
+        Iterator<Map<String, String>> itr = empFromExcel.iterator();
+        while(itr.hasNext()){
+            Map<String, String> mapNewEmp = itr.next();
+
+            sendText(addEmployeePage.firstNameField, mapNewEmp.get("firstName"));
+            sendText(addEmployeePage.middleNameField, mapNewEmp.get("middleName"));
+            sendText(addEmployeePage.lastNameField, mapNewEmp.get("lastName"));
+            String empIdValue = addEmployeePage.empIdLocator.getAttribute("value");
+            sendText(addEmployeePage.photograph, mapNewEmp.get("photograph"));
+
+            if(!addEmployeePage.checkbox.isSelected()){
+                click(addEmployeePage.checkbox);
+            }
+
+            sendText(addEmployeePage.createUserNameField, mapNewEmp.get("username"));
+            sendText(addEmployeePage.createPasswordField, mapNewEmp.get("password"));
+            sendText(addEmployeePage.confirmPasswordField, mapNewEmp.get("confirmPassword"));
+
+            click(addEmployeePage.saveButton);
+            System.out.println("click taken on save button");
+            Thread.sleep(3000);
+
+            click(dashboardPage.empListOption);
+            Thread.sleep(2000);
+            System.out.println("click taken on emp list option");
+            sendText(employeeList.empSearchIdField, empIdValue);
+            click(employeeList.searchButton);
+
+            List<WebElement> rowData =
+                    driver.findElements(By.xpath("//*[@id='resultTable']/tbody/tr"));
+
+            for(int i=0; i<rowData.size(); i++){
+                System.out.println("I am inside of for loop");
+                String rowText = rowData.get(i).getText();
+                System.out.println(rowText);
+
+                String expectedData = empIdValue + " " + mapNewEmp.get("firstName")
+                        +" "+mapNewEmp.get("middleName")+" "+mapNewEmp.get("lastName");
+
+                Assert.assertEquals(expectedData, rowText);
+            }
+
+            click(dashboardPage.addEmployeeOption);
+            Thread.sleep(2000);
+
+
+        }
+    }
+
 
 
 }

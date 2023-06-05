@@ -38,6 +38,11 @@ Feature: Add Employee
       |birgul   |MS        |ozin   |
       |alina    |MS        |boba   |
 
+    @excel
+    Scenario: Adding multiple employees using excel file
+      When user adds multiple employees from excel using "EmployeeData" and verify it
+
+
 
 
 

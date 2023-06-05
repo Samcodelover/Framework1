@@ -19,6 +19,24 @@ public class AddEmployeePage extends CommonMethods {
     @FindBy(id="btnSave")
     public WebElement saveButton;
 
+    @FindBy(id="photofile")
+    public WebElement photograph;
+
+    @FindBy(id="chkLogin")
+    public WebElement checkbox;
+
+    @FindBy(id="user_name")
+    public WebElement createUserNameField;
+
+    @FindBy(id="user_password")
+    public WebElement createPasswordField;
+
+    @FindBy(id="re_password")
+    public WebElement confirmPasswordField;
+
+    @FindBy(id="employeeId")
+    public WebElement empIdLocator;
+
     public AddEmployeePage(){
         PageFactory.initElements(driver, this);
     }
