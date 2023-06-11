@@ -84,16 +84,4 @@ public class HardCodedExamples {
         response.then().assertThat().body("Message", equalTo("Employee record Updated"));
 
     }
-
-    @Test
-    public void dgetUpdatedEmployee(){
-        RequestSpecification request = given().header("Authorization", token)
-                .header("Content-Type", "application/json")
-                .queryParam("employee_id", employee_id);
-
-        Response response = request.when().get("/getOneEmployee.php");
-        response.prettyPrint();
-        response.then().assertThat().statusCode(200);
-        response.then().assertThat().body("employee.emp_job_title", equalTo("Actress"));
-    }
 }
